@@ -1,0 +1,718 @@
+/*==================================================
+    HEADER
+==================================================*/
+
+.dashboard-header {
+    position: relative;
+    width: 100%;
+    height: 300px;
+
+    overflow: hidden;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+/*==================================================
+    OVERLAY
+==================================================*/
+
+.header-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: transparent;
+
+    z-index: 1;
+}
+
+/*==================================================
+    CONTAINER
+==================================================*/
+
+.dashboard-header .container-fluid {
+
+    position: relative;
+
+    z-index: 5;
+
+    height: 100%;
+
+    padding: 24px 40px;
+}
+
+/*==================================================
+    TOP BAR
+==================================================*/
+
+.header-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    width: 100%;
+
+    background: transparent;
+}
+
+/*==================================================
+    MENU BUTTON
+==================================================*/
+
+.menu-btn {
+
+    width: 52px;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background: rgba(80, 80, 80, .35);
+
+    backdrop-filter: blur(18px);
+
+    color: #fff;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    transition: .30s ease;
+}
+
+.menu-btn:hover {
+
+    background: rgba(80, 80, 80, .50);
+
+    transform: translateY(-2px);
+}
+
+/*==================================================
+    RIGHT SIDE
+==================================================*/
+
+.header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+/*==================================================
+    COUNTRY
+==================================================*/
+
+.country-btn {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    height: 52px;
+
+    padding: 0 18px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, .14);
+
+    backdrop-filter: blur(18px);
+
+    color: black;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.country-btn:hover {
+
+    background: rgba(255, 255, 255, .22);
+}
+
+.country-btn img {
+
+    width: 24px;
+
+    border-radius: 3px;
+}
+
+/*==================================================
+    ICON BUTTON
+==================================================*/
+
+.glass-icon {
+
+    position: relative;
+
+    width: 52px;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, .14);
+
+    backdrop-filter: blur(18px);
+
+    color: black;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    cursor: pointer;
+
+    transition: .30s;
+}
+
+.glass-icon:hover {
+
+    background: rgba(255, 255, 255, .22);
+
+    transform: translateY(-2px);
+}
+
+.glass-icon i {
+
+    font-size: 20px;
+}
+
+/*==================================================
+    BADGE
+==================================================*/
+
+.notify-badge {
+
+    position: absolute;
+
+    top: -4px;
+
+    right: -3px;
+
+    width: 22px;
+
+    height: 22px;
+
+    border-radius: 50%;
+
+    background: #0f5132;
+
+    color: #fff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border: 2px solid #fff;
+}
+
+/*==================================================
+    PROFILE
+==================================================*/
+
+.profile-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 8px 16px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, .14);
+
+    backdrop-filter: blur(18px);
+
+    color: black;
+
+    cursor: pointer;
+
+    transition: .30s;
+}
+
+.profile-card:hover {
+
+    background: rgba(255, 255, 255, .22);
+}
+
+.profile-card img {
+
+    width: 46px;
+
+    height: 46px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid rgba(255, 255, 255, .8);
+}
+
+.profile-text {
+
+    text-align: left;
+}
+
+.profile-text h6 {
+
+    margin: 0;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+.profile-text small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 12px;
+
+    color: black;
+}
+
+.profile-card i {
+
+    font-size: 14px;
+}
+
+/*==================================================
+    COMMON
+==================================================*/
+
+.menu-btn,
+.country-btn,
+.glass-icon,
+.profile-card {
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .08),
+        0 8px 20px rgba(0, 0, 0, .08);
+}
+
+/*==================================================
+    HEADER CONTENT
+==================================================*/
+
+.header-content {
+    position: absolute;
+
+    left: 40px;
+    right: 40px;
+    bottom: 10px;
+
+    z-index: 10;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+/*==================================================
+    LEFT
+==================================================*/
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-left h1 {
+    margin: 0;
+
+    font-size: 46px;
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+    color: black;
+
+    text-shadow: 0 3px 12px rgba(0, 0, 0, .25);
+}
+
+.header-breadcrumb {
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 16px;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    color: black;
+}
+
+.header-breadcrumb span {
+
+    white-space: nowrap;
+}
+
+.header-breadcrumb strong {
+
+    color: black;
+
+    font-weight: 700;
+}
+
+/*==================================================
+    RIGHT
+==================================================*/
+.header-right {
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+}
+
+/*==================================================
+    BACK BUTTON
+==================================================*/
+
+.back-button {
+
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    height: 54px;
+
+    padding: 0 24px;
+
+    border: none;
+
+    border-radius: 16px;
+
+    background: white;
+
+    backdrop-filter: blur(18px);
+
+    color: #0f5132;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s ease;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .15),
+        0 10px 25px rgba(0, 0, 0, .10);
+}
+
+.back-button i {
+    font-size: 18px;
+}
+
+.back-button:hover {
+
+    background: rgba(255, 255, 255);
+
+    transform: translateY(-2px);
+}
+
+/*==================================================
+    BOTTOM FADE
+==================================================*/
+
+.bottom-fade {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 120px;
+
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, .12) 50%,
+            rgba(255, 255, 255, .45) 80%,
+            rgba(255, 255, 255, .85) 100%);
+
+    pointer-events: none;
+}
+
+/*==================================================
+    ICON ALIGNMENT
+==================================================*/
+
+.menu-btn i,
+.glass-icon i,
+.country-btn i,
+.profile-card i,
+.back-button i {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*==================================================
+    SMOOTH TRANSITIONS
+==================================================*/
+
+.dashboard-header * {
+
+    transition: all .25s ease;
+}
+
+/*==================================================
+    RESPONSIVE
+==================================================*/
+
+@media (max-width:1200px) {
+
+    .dashboard-header {
+        height: 280px;
+    }
+
+    .dashboard-header .container-fluid {
+        padding: 20px 24px;
+    }
+
+    .header-content {
+        left: 24px;
+        right: 24px;
+        bottom: 32px;
+    }
+
+    .header-left h1 {
+        font-size: 38px;
+    }
+
+    .profile-text {
+        display: none;
+    }
+
+    .profile-card {
+        padding: 8px;
+    }
+
+}
+
+@media (max-width:992px) {
+
+    .dashboard-header {
+        height: 330px;
+    }
+
+    .header-top {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+
+    .header-content {
+        left: 24px;
+        right: 24px;
+        bottom: 26px;
+
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .back-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .header-left h1 {
+        font-size: 34px;
+    }
+
+}
+
+@media (max-width:768px) {
+
+    .dashboard-header {
+        height: 350px;
+    }
+
+    .dashboard-header .container-fluid {
+        padding: 16px;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .country-btn span,
+    .profile-text {
+        display: none;
+    }
+
+    .country-btn {
+        width: 52px;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .country-btn i:last-child {
+        display: none;
+    }
+
+    .profile-card {
+        padding: 6px;
+    }
+
+    .profile-card img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .menu-btn,
+    .glass-icon {
+        width: 46px;
+        height: 46px;
+    }
+
+    .header-content {
+        left: 16px;
+        right: 16px;
+    }
+
+    .header-left h1 {
+        font-size: 28px;
+    }
+
+    .header-breadcrumb {
+        flex-wrap: wrap;
+        gap: 6px;
+        font-size: 13px;
+    }
+
+    .back-button {
+        width: 100%;
+        height: 50px;
+        font-size: 14px;
+    }
+
+}
+
+@media (max-width:576px) {
+
+    .dashboard-header {
+        height: 370px;
+    }
+
+    .header-left h1 {
+        font-size: 24px;
+    }
+
+    .bottom-fade {
+        height: 70px;
+    }
+
+}
+
+/*==================================================
+    HOVER
+==================================================*/
+
+.menu-btn:hover,
+.country-btn:hover,
+.glass-icon:hover,
+.profile-card:hover,
+.back-button:hover {
+
+    transform: translateY(-2px);
+}
+
+/*==================================================
+    ANIMATION
+==================================================*/
+
+.dashboard-header {
+
+    animation: headerFade .45s ease;
+}
+
+@keyframes headerFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/*==================================================
+    COMMON
+==================================================*/
+
+button {
+    outline: none;
+}
+
+button:focus {
+    box-shadow: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+* {
+    box-sizing: border-box;
+}

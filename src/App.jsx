@@ -6,7 +6,7 @@ import "./assets/vendor/bootstrap-icons/bootstrap-icons.css";
 import "./App.css";
 
 import Sidebar from "./components/Sidebar/Sidebar";
-
+import Header from "./components/Header/Header";
 
 class App extends Component {
   render() {
@@ -19,7 +19,7 @@ class App extends Component {
 
      {/* Header এখানে পরে বসবে */}
 
-         
+          <Header />
 
           <div className="container-fluid py-5">
             <h3 className="fw-bold text-dark">
