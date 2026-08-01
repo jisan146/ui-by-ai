@@ -7,6 +7,7 @@ import "./App.css";
 
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
+import Form from "./components/Form/EmployeeForm"
 
 class App extends Component {
   render() {
@@ -17,15 +18,11 @@ class App extends Component {
 
         <main className="app-content">
 
-     {/* Header এখানে পরে বসবে */}
+    
 
           <Header />
 
-          <div className="container-fluid py-5">
-            <h3 className="fw-bold text-dark">
-              Content Area
-            </h3>
-          </div>
+           <Form/>
 
           {/* Footer এখানে পরে বসবে */}
 
