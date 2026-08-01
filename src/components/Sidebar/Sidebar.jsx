@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import "./Sidebar.css";
+import "./Sidebar.css";        
+import logo from "../../assets/images/logo.png"; 
+import sidebarBg from "../../assets/images/sidebar-bg.png";                                                
 
 class Sidebar extends Component {
   renderMenuItem = (icon, text, active = false) => (
@@ -14,11 +16,13 @@ class Sidebar extends Component {
   render() {
     const { show } = this.props;
     return (
-      <aside className={`sidebar ${show ? "show" : ""}`}>
+      <aside className={`sidebar ${show ? "show" : ""}`} style={{
+                          backgroundImage: `url(${sidebarBg})`,
+                      }}>
         {/* Logo */}
         <div className="sidebar-logo">
           <img
-            src="/assets/images/logo.png"
+            src={logo}
             alt="Jisan Admin"
             className="sidebar-logo-img"
           />
