@@ -8,6 +8,7 @@ import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/EmployeeForm"
+import Footer from "./components/Footer/Footer"
 
 class App extends Component {
   render() {
@@ -24,8 +25,7 @@ class App extends Component {
 
            <Form/>
 
-          {/* Footer এখানে পরে বসবে */}
-
+         <Footer/>
         </main>
 
       </div>

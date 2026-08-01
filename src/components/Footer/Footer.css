@@ -1,0 +1,216 @@
+/*==================================================
+    FOOTER
+==================================================*/
+
+.app-footer{
+
+    position:relative;
+
+    width:100%;
+
+    height:58px;
+
+    margin-top:-14px;
+
+    background:transparent;
+
+    overflow:hidden;
+
+    z-index:2;
+}
+
+/*==================================================
+    SKYLINE
+==================================================*/
+
+/*==================================================
+    SKYLINE
+==================================================*/
+
+.footer-skyline{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:100%;
+
+    background-position:center bottom;
+
+    background-repeat:no-repeat;
+
+    /* cover বাদ */
+    background-size:100% auto;
+
+    opacity:.35;
+
+    pointer-events:none;
+}
+
+/*==================================================
+    SOFT OVERLAY
+==================================================*/
+
+.footer-skyline::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        to bottom,
+        rgba(255,255,255,.05) 0%,
+        rgba(255,255,255,.18) 35%,
+        rgba(255,255,255,.35) 70%,
+        rgba(255,255,255,.55) 100%
+    );
+}
+
+/*==================================================
+    CONTENT
+==================================================*/
+
+.footer-content{
+
+    position:relative;
+
+    z-index:5;
+
+    height:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    padding:0 24px 8px;
+
+    font-size:14px;
+
+    color:#4b5563;
+
+    background:transparent;
+}
+
+/*==================================================
+    LEFT
+==================================================*/
+
+.footer-left{
+
+    display:flex;
+
+    align-items:center;
+}
+
+.footer-left strong{
+
+    color:#111827;
+
+    font-weight:700;
+}
+
+/*==================================================
+    CENTER
+==================================================*/
+
+.footer-center{
+
+    position:absolute;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    display:flex;
+
+    align-items:center;
+}
+
+.footer-center img{
+
+    width:16px;
+
+    border-radius:2px;
+
+    opacity:.9;
+}
+
+/*==================================================
+    RIGHT
+==================================================*/
+
+.footer-right{
+
+    display:flex;
+
+    align-items:center;
+
+    font-weight:500;
+
+    color:#374151;
+}
+
+.footer-right i{
+
+    margin:0 5px;
+
+    font-size:12px;
+}
+
+/*==================================================
+    REMOVE EFFECT
+==================================================*/
+
+.footer-right:hover{
+
+    color:#374151;
+}
+
+/*==================================================
+    RESPONSIVE
+==================================================*/
+
+@media(max-width:768px){
+
+    .app-footer{
+
+        height:auto;
+
+        margin-top:-8px;
+
+        padding:12px 0;
+    }
+
+    .footer-content{
+
+        flex-direction:column;
+
+        justify-content:center;
+
+        align-items:center;
+
+        gap:8px;
+
+        text-align:center;
+
+        padding:12px;
+    }
+
+    .footer-center{
+
+        position:relative;
+
+        left:auto;
+
+        transform:none;
+
+        order:2;
+    }
+
+}
