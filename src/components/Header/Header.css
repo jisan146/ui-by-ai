@@ -46,19 +46,10 @@
     TOP BAR
 ==================================================*/
 
-.header-top {
-
+.header-top{
     display: flex;
-
-    justify-content: space-between;
-
     align-items: flex-start;
-
-    width: 100%;
-
-    background: transparent;
 }
-
 /*==================================================
     MENU BUTTON
 ==================================================*/
@@ -97,13 +88,12 @@
     RIGHT SIDE
 ==================================================*/
 
-.header-actions {
-
+.header-actions{
     display: flex;
-
     align-items: center;
-
     gap: 12px;
+
+    margin-left: auto;
 }
 
 /*==================================================
@@ -715,4 +705,17 @@ img {
 
 * {
     box-sizing: border-box;
+}
+
+.menu-btn{
+    display: none;
+}
+
+@media (max-width:991.98px){
+
+    .menu-btn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }

@@ -12,8 +12,9 @@ class Sidebar extends Component {
   );
 
   render() {
+    const { show } = this.props;
     return (
-      <aside className="sidebar">
+      <aside className={`sidebar ${show ? "show" : ""}`}>
         {/* Logo */}
         <div className="sidebar-logo">
           <img

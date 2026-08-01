@@ -4,7 +4,7 @@ import "./Header.css";
 import headerBg from "../../assets/images/header-bg.png";
 import profile from "../../assets/images/avatar.png";
 
-const Header = () => {
+const Header = ({ toggleSidebar }) => {
   return (
     <header
       className="dashboard-header"
@@ -22,7 +22,7 @@ const Header = () => {
 
           {/* Left */}
 
-          <button className="menu-btn">
+          <button className="menu-btn" onClick={toggleSidebar}>
             <i className="bi bi-list"></i>
           </button>
 

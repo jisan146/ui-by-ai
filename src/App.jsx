@@ -11,21 +11,46 @@ import Form from "./components/Form/EmployeeForm"
 import Footer from "./components/Footer/Footer"
 
 class App extends Component {
+  state = {
+    sidebarOpen: false,
+  };
+
+  toggleSidebar = () => {
+    this.setState((prev) => ({
+      sidebarOpen: !prev.sidebarOpen,
+    }));
+  };
+
+  closeSidebar = () => {
+    this.setState({
+      sidebarOpen: false,
+    });
+  };
   render() {
     return (
       <div className="app-wrapper">
 
-        <Sidebar />
+        <Sidebar show={this.state.sidebarOpen} />
+        {/* Overlay */}
+        {this.state.sidebarOpen && (
+          <div
+            className="sidebar-overlay"
+            onClick={this.closeSidebar}
+          ></div>
+        )}
 
         <main className="app-content">
 
-    
 
-          <Header />
 
-           <Form/>
+          <Header
+            toggleSidebar={this.toggleSidebar}
+            sidebarOpen={this.state.sidebarOpen}
+          />
 
-         <Footer/>
+          <Form />
+
+          <Footer />
         </main>
 
       </div>
