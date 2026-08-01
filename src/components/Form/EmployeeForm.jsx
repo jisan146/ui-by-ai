@@ -261,7 +261,7 @@ const EmployeeForm = () => {
                             </div>
 
                         </div>
-                                                {/*================ Job Information ================*/}
+                        {/*================ Job Information ================*/}
 
                         <div className="section-title mt-5">
 
@@ -476,7 +476,51 @@ const EmployeeForm = () => {
                             </div>
 
                         </div>
-                                            </div>
+                        {/* ================= ACTION BUTTON ================= */}
+
+                        <div className="row mt-4">
+
+                            <div className="col-lg-12">
+
+                                <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                                    <button
+                                        type="reset"
+                                        className="btn btn-outline-success px-4"
+                                    >
+                                        <i className="bi bi-arrow-clockwise me-2"></i>
+
+                                        রিসেট করুন
+                                    </button>
+
+                                    <div className="d-flex gap-3">
+
+                                        <button
+                                            type="button"
+                                            className="btn btn-light px-4"
+                                        >
+                                            <i className="bi bi-bookmark me-2"></i>
+
+                                            ড্রাফট হিসেবে সংরক্ষণ
+                                        </button>
+
+                                        <button
+                                            type="submit"
+                                            className="btn btn-success px-4"
+                                        >
+                                            <i className="bi bi-send me-2"></i>
+
+                                            কর্মচারী সংরক্ষণ করুন
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
                 {/* ================= RIGHT SIDEBAR ================= */}
@@ -616,50 +660,7 @@ const EmployeeForm = () => {
 
             </div>
 
-            {/* ================= ACTION BUTTON ================= */}
 
-            <div className="row mt-4">
-
-                <div className="col-lg-9">
-
-                    <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
-
-                        <button
-                            type="reset"
-                            className="btn btn-outline-success px-4"
-                        >
-                            <i className="bi bi-arrow-clockwise me-2"></i>
-
-                            রিসেট করুন
-                        </button>
-
-                        <div className="d-flex gap-3">
-
-                            <button
-                                type="button"
-                                className="btn btn-light px-4"
-                            >
-                                <i className="bi bi-bookmark me-2"></i>
-
-                                ড্রাফট হিসেবে সংরক্ষণ
-                            </button>
-
-                            <button
-                                type="submit"
-                                className="btn btn-success px-4"
-                            >
-                                <i className="bi bi-send me-2"></i>
-
-                                কর্মচারী সংরক্ষণ করুন
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
 
         </div>
     );
