@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./LoginModal.css";
 import loginHeaderBg from "../../assets/images/login-header-bg.png";
 import loginFooterBg from "../../assets/images/login-footer-bg.png";
+import logo from "../../assets/images/logo.png";
 
 const LoginModal = ({ onLogin, onRegister }) => {
 
@@ -67,7 +68,7 @@ const LoginModal = ({ onLogin, onRegister }) => {
                                 <div className="brand-logo">
 
                                     <img
-                                        src="/assets/images/logo.png"
+                                        src={logo}
                                         alt="Logo"
                                     />
 
