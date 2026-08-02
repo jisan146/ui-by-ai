@@ -1,11 +1,11 @@
 import React from "react";
-
+import loginBg from "../../../assets/images/login-bg.png";
 const RightSide = () => {
     return (
         <div className="right-side">
 
             <img
-                src="/assets/images/hero.webp"
+                src={loginBg}
                 alt="Bangladesh"
                 className="hero-image"
             />

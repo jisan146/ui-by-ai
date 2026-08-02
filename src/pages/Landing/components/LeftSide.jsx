@@ -1,5 +1,5 @@
 import React from "react";
-
+import logo from "../../../assets/images/logo.png";
 const LeftSide = () => {
     return (
         <div className="left-side">
@@ -9,7 +9,7 @@ const LeftSide = () => {
             <div className="brand">
 
                 <img
-                    src="/assets/images/logo.png"
+                    src={logo}
                     alt="EduCore"
                     className="brand-logo"
                 />
