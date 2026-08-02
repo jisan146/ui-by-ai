@@ -1,6 +1,9 @@
 import React from "react";
 import logo from "../../assets/images/logo.png";
+import { useState } from "react";
+import LoginModal from "../Login/LoginModal";
 const LeftSide = () => {
+     const [authPage, setAuthPage] = useState("login");
     return (
         <div className="left-side">
 
@@ -48,7 +51,7 @@ const LeftSide = () => {
             </p>
             
 
-            {/* Buttons */}
+            {/* Buttons */} 
 
             <div className="hero-actions">
 

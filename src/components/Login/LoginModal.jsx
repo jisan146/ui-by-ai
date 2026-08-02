@@ -3,10 +3,12 @@ import "./LoginModal.css";
 import loginHeaderBg from "../../assets/images/login-header-bg.png";
 import loginFooterBg from "../../assets/images/login-footer-bg.png";
 import logo from "../../assets/images/logo.png";
-
+import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
 const LoginModal = ({ onLogin, onRegister }) => {
 
     const [showPassword, setShowPassword] = useState(false);
+    const [page, setPage] = useState("login");
 
     const [form, setForm] = useState({
         username: "",
@@ -45,7 +47,7 @@ const LoginModal = ({ onLogin, onRegister }) => {
             aria-hidden="true"
         >
 
-            <div className="modal-dialog modal-dialog-centered modal-xl">
+            <div className="modal-dialog modal-dialog-centered">
 
                 <div className="modal-content login-modal">
 
@@ -102,231 +104,16 @@ const LoginModal = ({ onLogin, onRegister }) => {
 
                                     <div className="login-card">
 
-                                        <div className="login-card-header">
-
-                                            <div>
-
-                                                <h3>স্বাগতম!</h3>
-
-                                                <p>
-                                                    আপনার অ্যাকাউন্টে সাইন ইন করুন
-                                                </p>
-
-                                            </div>
-
-                                            <div className="shield-box">
-
-                                                <i className="bi bi-shield-check"></i>
-
-                                            </div>
-
-                                        </div>
-
-                                        <form onSubmit={handleSubmit}>
-
-                                            {/* Username */}
-
-                                            <div className="mb-4">
-
-                                                <div className="input-box">
-
-                                                    <span className="input-icon">
-
-                                                        <i className="bi bi-person"></i>
-
-                                                    </span>
-
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        placeholder="ইউজারনেম বা ইমেইল"
-                                                        name="username"
-                                                        value={form.username}
-                                                        onChange={handleChange}
-                                                    />
-
-                                                </div>
-
-                                            </div>
-
-                                            {/* Password */}
-
-                                            <div className="mb-4">
-
-                                                <div className="input-box">
-
-                                                    <span className="input-icon">
-
-                                                        <i className="bi bi-lock"></i>
-
-                                                    </span>
-
-                                                    <input
-                                                        type={showPassword ? "text" : "password"}
-                                                        className="form-control"
-                                                        placeholder="পাসওয়ার্ড"
-                                                        name="password"
-                                                        value={form.password}
-                                                        onChange={handleChange}
-                                                    />
-
-                                                    <button
-                                                        type="button"
-                                                        className="password-btn"
-                                                        onClick={() => setShowPassword(!showPassword)}
-                                                    >
-
-                                                        <i
-                                                            className={
-                                                                showPassword
-                                                                    ? "bi bi-eye-slash"
-                                                                    : "bi bi-eye"
-                                                            }
-                                                        ></i>
-
-                                                    </button>
-
-                                                </div>
-
-                                            </div>
-
-                                            {/* Remember */}
-
-                                            <div className="remember-area">
-
-                                                <div className="form-check">
-
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="checkbox"
-                                                        id="remember"
-                                                        name="remember"
-                                                        checked={form.remember}
-                                                        onChange={handleChange}
-                                                    />
-
-                                                    <label
-                                                        className="form-check-label"
-                                                        htmlFor="remember"
-                                                    >
-
-                                                        আমাকে মনে রাখুন
-
-                                                    </label>
-
-                                                </div>
-
-                                                <a href="#">
-
-                                                    পাসওয়ার্ড ভুলে গেছেন?
-
-                                                </a>
-
-                                            </div>
-
-                                            {/* Login */}
-
-                                            <button
-                                                type="submit"
-                                                className="btn login-btn"
-                                            >
-
-                                                <i className="bi bi-lock me-2"></i>
-
-                                                সাইন ইন
-
-                                            </button>
-
-                                        </form>
-                                        {/*==========================
-    Divider
-==========================*/}
-
-                                        <div className="login-divider">
-
-                                            <span>অথবা</span>
-
-                                        </div>
-
-
-                                        {/*==========================
-    Social Login
-==========================*/}
-
-                                        <div className="row g-3 social-login">
-
-                                            <div className="col-md-4">
-
-                                                <button
-                                                    type="button"
-                                                    className="btn social-btn"
-                                                >
-
-                                                    <i className="bi bi-google google"></i>
-
-                                                    <span>Google</span>
-
-                                                </button>
-
-                                            </div>
-
-                                            <div className="col-md-4">
-
-                                                <button
-                                                    type="button"
-                                                    className="btn social-btn"
-                                                >
-
-                                                    <i className="bi bi-facebook facebook"></i>
-
-                                                    <span>Facebook</span>
-
-                                                </button>
-
-                                            </div>
-
-                                            <div className="col-md-4">
-
-                                                <button
-                                                    type="button"
-                                                    className="btn social-btn"
-                                                >
-
-                                                    <i className="bi bi-github github"></i>
-
-                                                    <span>GitHub</span>
-
-                                                </button>
-
-                                            </div>
-
-                                        </div>
-
-
-                                        {/*==========================
-    Register
-==========================*/}
-
-                                        <div className="register-area">
-
-                                            <span>
-
-                                                অ্যাকাউন্ট নেই?
-
-                                            </span>
-
-                                            <button
-                                                type="button"
-                                                className="register-link"
-                                                onClick={onRegister}
-                                                data-bs-dismiss="modal"
-                                            >
-
-                                                নতুন অ্যাকাউন্ট তৈরি করুন
-
-                                            </button>
-
-                                        </div>
+                                        {
+                                            page === "login"
+                                                ? <LoginForm
+                                                    setPage={setPage}
+                                                    onLogin={onLogin}
+                                                />
+                                                : <RegisterForm
+                                                    setPage={setPage}
+                                                />
+                                        }
 
                                     </div>
 
