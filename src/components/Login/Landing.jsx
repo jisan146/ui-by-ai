@@ -5,6 +5,7 @@ import "./Landing.css";
 import LeftSide from "./LeftSide";
 import RightSide from "./RightSide";
 import Footer from "./Footer";
+import LoginModal from "./LoginModal";
 
 const Landing = () => {
     return (
@@ -45,6 +46,7 @@ const Landing = () => {
                 </div>
 
                 <Footer />
+                <LoginModal />
 
             </div>
 

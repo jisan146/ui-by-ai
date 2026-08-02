@@ -52,7 +52,7 @@ const LeftSide = () => {
 
             <div className="hero-actions">
 
-                <button className="btn btn-outline-success btn-lg hero-btn-outline">
+                <button className="btn btn-outline-success btn-lg hero-btn-outline" data-bs-toggle="modal"   data-bs-target="#loginModal">
 
                     <i className="bi bi-person"></i>
 
