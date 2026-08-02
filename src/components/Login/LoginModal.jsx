@@ -5,6 +5,10 @@ import loginFooterBg from "../../assets/images/login-footer-bg.png";
 import logo from "../../assets/images/logo.png";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
+import OtpForm from "./OtpForm";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
+import SuccessScreen from "./SuccessScreen";
 const LoginModal = ({
     page,
     setPage,
@@ -108,16 +112,62 @@ const LoginModal = ({
 
                                     <div className="login-card">
 
-                                        {
-                                            page === "login"
-                                                ? <LoginForm
-                                                    setPage={setPage}
-                                                    onLogin={onLogin}
-                                                />
-                                                : <RegisterForm
-                                                    setPage={setPage}
-                                                />
-                                        }
+                                        {page === "login" && (
+                                            <LoginForm
+                                                setPage={setPage}
+                                                onLogin={onLogin}
+                                            />
+                                        )}
+
+                                        {page === "register" && (
+                                            <RegisterForm
+                                                setPage={setPage}
+                                            />
+                                        )}
+
+                                        {page === "otp" && (
+                                            <OtpForm
+                                                setPage={setPage}
+                                            />
+                                        )}
+
+                                        {page === "forgot" && (
+                                            <ForgotPassword
+                                                setPage={setPage}
+                                            />
+                                        )}
+                                        {page === "reset" && (
+                                            <ResetPassword
+                                                setPage={setPage}
+                                            />
+                                        )}
+                                        {page === "register-success" && (
+
+                                            <SuccessScreen
+
+                                                title="অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে"
+
+                                                message="এখন আপনার নতুন অ্যাকাউন্ট দিয়ে লগইন করুন।"
+
+                                                setPage={setPage}
+
+                                            />
+
+                                        )}
+
+                                        {page === "password-success" && (
+
+                                            <SuccessScreen
+
+                                                title="পাসওয়ার্ড পরিবর্তন সম্পন্ন"
+
+                                                message="নতুন পাসওয়ার্ড দিয়ে এখন লগইন করুন।"
+
+                                                setPage={setPage}
+
+                                            />
+
+                                        )}
 
                                     </div>
 

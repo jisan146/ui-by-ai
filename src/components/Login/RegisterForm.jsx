@@ -32,19 +32,19 @@ const RegisterForm = ({ setPage }) => {
         });
 
     };
+const handleSubmit = (e) => {
 
-    const handleSubmit = (e) => {
+    e.preventDefault();
 
-        e.preventDefault();
+    console.log(form);
 
-        console.log(form);
+    // API Success
 
-        // TODO:
-        // API Call
-        // Success হলে
-        // setPage("otp");
+    setPage("otp");
+    //setPage("register-success");
+    //setPage("password-success");
 
-    };
+};
 
     return (
 
@@ -53,7 +53,7 @@ const RegisterForm = ({ setPage }) => {
             {/*=====================
                 Header
             =====================*/}
-
+<div className="auth-page">
             <div className="login-card-header">
 
                 <div>
@@ -424,7 +424,7 @@ const RegisterForm = ({ setPage }) => {
                 </button>
 
             </div>
-
+</div>
         </>
 
     );
