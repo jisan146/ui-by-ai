@@ -2,8 +2,8 @@ import React from "react";
 import logo from "../../assets/images/logo.png";
 import { useState } from "react";
 import LoginModal from "../Login/LoginModal";
-const LeftSide = () => {
-     const [authPage, setAuthPage] = useState("login");
+const LeftSide = ({ setAuthPage }) => {
+
     return (
         <div className="left-side">
 
@@ -49,13 +49,18 @@ const LeftSide = () => {
                 একবার লগইন, সব সিস্টেমে প্রবেশাধিকার।
                 আপনার প্রতিষ্ঠান হবে আরও নিরাপদ ও কার্যকর।
             </p>
-            
 
-            {/* Buttons */} 
+
+            {/* Buttons */}
 
             <div className="hero-actions">
 
-                <button className="btn btn-outline-success btn-lg hero-btn-outline" data-bs-toggle="modal"   data-bs-target="#loginModal">
+                <button
+                    className="btn btn-outline-success btn-lg hero-btn-outline"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    onClick={() => setAuthPage("login")}
+                >
 
                     <i className="bi bi-person"></i>
 
@@ -63,7 +68,12 @@ const LeftSide = () => {
 
                 </button>
 
-                <button className="btn btn-success btn-lg hero-btn">
+                <button
+                    className="btn btn-success btn-lg hero-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    onClick={() => setAuthPage("register")}
+                >
 
                     <i className="bi bi-person-plus"></i>
 

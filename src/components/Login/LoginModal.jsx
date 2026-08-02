@@ -5,10 +5,14 @@ import loginFooterBg from "../../assets/images/login-footer-bg.png";
 import logo from "../../assets/images/logo.png";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-const LoginModal = ({ onLogin, onRegister }) => {
+const LoginModal = ({
+    page,
+    setPage,
+    onLogin
+}) => {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [page, setPage] = useState("login");
+
 
     const [form, setForm] = useState({
         username: "",

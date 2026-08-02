@@ -6,8 +6,10 @@ import LeftSide from "./LeftSide";
 import RightSide from "./RightSide";
 import Footer from "./Footer";
 import LoginModal from "./LoginModal";
+import { useState } from "react";
 
 const Landing = () => {
+    const [authPage, setAuthPage] = useState("login");
     return (
         <div className="landing-page">
 
@@ -16,7 +18,9 @@ const Landing = () => {
                 <div className="row g-0 landing-wrapper">
 
                     <div className="col-lg-5">
-                        <LeftSide />
+                        <LeftSide
+                            setAuthPage={setAuthPage}
+                        />
                     </div>
 
                     <div className="col-lg-7">
@@ -46,7 +50,10 @@ const Landing = () => {
                 </div>
 
                 <Footer />
-                <LoginModal />
+                <LoginModal
+                    page={authPage}
+                    setPage={setAuthPage}
+                />
 
             </div>
 
