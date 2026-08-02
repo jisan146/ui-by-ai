@@ -2,9 +2,9 @@ import React from "react";
 
 import "./Landing.css";
 
-import LeftSide from "./components/LeftSide";
-import RightSide from "./components/RightSide";
-import Footer from "./components/Footer";
+import LeftSide from "./LeftSide";
+import RightSide from "./RightSide";
+import Footer from "./Footer";
 
 const Landing = () => {
     return (

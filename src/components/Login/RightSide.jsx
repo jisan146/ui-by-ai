@@ -1,5 +1,5 @@
 import React from "react";
-import loginBg from "../../../assets/images/login-bg.png";
+import loginBg from "../../assets/images/login-bg.png";
 const RightSide = () => {
     return (
         <div className="right-side">
