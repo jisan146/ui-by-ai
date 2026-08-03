@@ -1,53 +1,154 @@
 import React, { Component } from "react";
-
+import validation from "../../utils/validation";
+import validationService from "../../services/validationService";
 class RegisterForm extends Component {
 
     constructor(props) {
 
         super(props);
 
+        this.validationSchema = null;
+
         this.state = {
 
             showPassword: false,
+
             showConfirmPassword: false,
 
             form: {
 
                 fullName: "",
+
                 username: "",
+
                 email: "",
+
                 phone: "",
+
                 password: "",
+
                 confirmPassword: "",
+
                 terms: false
 
-            }
+            },
+
+            errors: {},
+
+            isValid: true
 
         };
 
     }
 
+    //--------------------------------------------------
+    // Component Did Mount
+    //--------------------------------------------------
+    async componentDidMount() {
+
+        this.validationSchema =
+            await validationService.getSchema("register");
+
+        if (!this.validationSchema) {
+            return;
+        }
+
+        const errors = validation.validateForm(
+
+            this.state.form,
+            this.validationSchema,
+            "submit"
+
+        );
+
+        this.setState({
+
+            errors,
+            isValid: !validation.hasErrors(errors)
+
+        }, () => {
+
+            setTimeout(() => {
+
+                document
+                    .querySelector('input[name="fullName"]')
+                    ?.focus();
+
+            }, 50);
+
+        });
+
+    }
+
+    //--------------------------------------------------
+    // Handle Change
+    //--------------------------------------------------
+
     handleChange = (e) => {
 
         const { name, value, type, checked } = e.target;
 
-        this.setState((prevState) => ({
+        const fieldValue =
+            type === "checkbox"
+                ? checked
+                : value;
 
-            form: {
+        const form = {
 
-                ...prevState.form,
+            ...this.state.form,
 
-                [name]: type === "checkbox"
-                    ? checked
-                    : value
+            [name]: fieldValue
+
+        };
+
+        let errors = {
+
+            ...this.state.errors
+
+        };
+
+        if (this.validationSchema) {
+
+            const error = validation.validateField(
+
+                name,
+
+                fieldValue,
+
+                form,
+
+                this.validationSchema,
+
+                "change"
+
+            );
+
+            if (error) {
+
+                errors[name] = error;
+
+            }
+            else {
+
+                delete errors[name];
 
             }
 
-        }));
+        }
+
+        this.setState({
+
+            form,
+
+            errors,
+
+            isValid: !validation.hasErrors(errors)
+
+        });
 
     };
 
-    handleSubmit = (e) => {
+    _handleSubmit = (e) => {
 
         e.preventDefault();
 
@@ -56,6 +157,71 @@ class RegisterForm extends Component {
         // API Success
 
         this.props.setPage("otp");
+        // this.props.setPage("register-success");
+        // this.props.setPage("password-success");
+
+    };
+    //--------------------------------------------------
+    // Handle Submit
+    //--------------------------------------------------
+
+    handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        if (!this.validationSchema) {
+
+            console.error("Validation schema not loaded.");
+
+            return;
+
+        }
+
+        const errors = validation.validateForm(
+
+            this.state.form,
+
+            this.validationSchema,
+
+            "submit"
+
+        );
+
+        const isValid = !validation.hasErrors(errors);
+
+        this.setState({
+
+            errors,
+
+            isValid
+
+        });
+
+        if (!isValid) {
+
+            const firstError =
+                validation.getFirstError(errors);
+
+            if (firstError) {
+
+                document
+                    .getElementsByName(firstError)?.[0]
+                    ?.focus();
+
+            }
+
+            return;
+
+        }
+
+        console.log(this.state.form);
+
+        //=========================================
+        // API Call
+        //=========================================
+
+        this.props.setPage("otp");
+
         // this.props.setPage("register-success");
         // this.props.setPage("password-success");
 
@@ -110,342 +276,426 @@ class RegisterForm extends Component {
     Row 1
 =====================*/}
 
-<div className="row">
+                        <div className="row">
 
-    <div className="col-md-6 mb-4">
+                            <div className="col-md-6 mb-4">
 
-        <div className="input-box">
+                                <div className="input-box">
 
-            <span className="input-icon">
+                                    <span className="input-icon">
 
-                <i className="bi bi-person"></i>
+                                        <i className="bi bi-person"></i>
 
-            </span>
+                                    </span>
 
-            <input
-                type="text"
-                className="form-control"
-                placeholder="পুরো নাম"
-                name="fullName"
-                value={form.fullName}
-                onChange={this.handleChange}
-            />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="পুরো নাম"
+                                        name="fullName"
+                                        value={form.fullName}
+                                        onChange={this.handleChange}
+                                    />
 
-        </div>
+                                    {
+                                        this.state.errors.fullName && (
 
-    </div>
+                                            <div className="text-danger mt-1">
 
-    <div className="col-md-6 mb-4">
+                                                {this.state.errors.fullName}
 
-        <div className="input-box">
+                                            </div>
 
-            <span className="input-icon">
+                                        )
+                                    }
 
-                <i className="bi bi-at"></i>
+                                </div>
 
-            </span>
+                            </div>
 
-            <input
-                type="text"
-                className="form-control"
-                placeholder="ইউজারনেম"
-                name="username"
-                value={form.username}
-                onChange={this.handleChange}
-            />
+                            <div className="col-md-6 mb-4">
 
-        </div>
+                                <div className="input-box">
 
-    </div>
+                                    <span className="input-icon">
 
-</div>
+                                        <i className="bi bi-at"></i>
+
+                                    </span>
+
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="ইউজারনেম"
+                                        name="username"
+                                        value={form.username}
+                                        onChange={this.handleChange}
+                                    />
+
+                                    {
+                                        this.state.errors.username && (
+
+                                            <div className="text-danger mt-1">
+
+                                                {this.state.errors.username}
+
+                                            </div>
+
+                                        )
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
 
 
-{/*=====================
+                        {/*=====================
     Row 2
 =====================*/}
 
-<div className="row">
+                        <div className="row">
 
-    <div className="col-md-6 mb-4">
+                            <div className="col-md-6 mb-4">
 
-        <div className="input-box">
+                                <div className="input-box">
 
-            <span className="input-icon">
+                                    <span className="input-icon">
 
-                <i className="bi bi-envelope"></i>
+                                        <i className="bi bi-envelope"></i>
 
-            </span>
+                                    </span>
 
-            <input
-                type="email"
-                className="form-control"
-                placeholder="ইমেইল"
-                name="email"
-                value={form.email}
-                onChange={this.handleChange}
-            />
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        placeholder="ইমেইল"
+                                        name="email"
+                                        value={form.email}
+                                        onChange={this.handleChange}
+                                    />
 
-        </div>
+                                    {
+                                        this.state.errors.email && (
 
-    </div>
+                                            <div className="text-danger mt-1">
 
-    <div className="col-md-6 mb-4">
+                                                {this.state.errors.email}
 
-        <div className="input-box">
+                                            </div>
 
-            <span className="input-icon">
+                                        )
+                                    }
 
-                <i className="bi bi-phone"></i>
+                                </div>
 
-            </span>
+                            </div>
 
-            <input
-                type="text"
-                className="form-control"
-                placeholder="মোবাইল নম্বর"
-                name="phone"
-                value={form.phone}
-                onChange={this.handleChange}
-            />
+                            <div className="col-md-6 mb-4">
 
-        </div>
+                                <div className="input-box">
 
-    </div>
+                                    <span className="input-icon">
 
-</div>
+                                        <i className="bi bi-phone"></i>
+
+                                    </span>
+
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="মোবাইল নম্বর"
+                                        name="phone"
+                                        value={form.phone}
+                                        onChange={this.handleChange}
+                                    />
+
+                                    {
+                                        this.state.errors.phone && (
+
+                                            <div className="text-danger mt-1">
+
+                                                {this.state.errors.phone}
+
+                                            </div>
+
+                                        )
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
 
 
-{/*=====================
+                        {/*=====================
     Password
 =====================*/}
 
-<div className="mb-4">
+                        <div className="mb-4">
 
-    <div className="input-box">
+                            <div className="input-box">
 
-        <span className="input-icon">
+                                <span className="input-icon">
 
-            <i className="bi bi-lock"></i>
+                                    <i className="bi bi-lock"></i>
 
-        </span>
+                                </span>
 
-        <input
-            type={showPassword ? "text" : "password"}
-            className="form-control"
-            placeholder="পাসওয়ার্ড"
-            name="password"
-            value={form.password}
-            onChange={this.handleChange}
-        />
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    className="form-control"
+                                    placeholder="পাসওয়ার্ড"
+                                    name="password"
+                                    value={form.password}
+                                    onChange={this.handleChange}
+                                />
 
-        <button
-            type="button"
-            className="password-btn"
-            onClick={() =>
-                this.setState({
-                    showPassword: !showPassword
-                })
-            }
-        >
+                                {
+                                    this.state.errors.password && (
 
-            <i
-                className={
-                    showPassword
-                        ? "bi bi-eye-slash"
-                        : "bi bi-eye"
-                }
-            ></i>
+                                        <div className="text-danger mt-1">
 
-        </button>
+                                            {this.state.errors.password}
 
-    </div>
+                                        </div>
 
-</div>
-{/*=====================
+                                    )
+                                }
+
+                                <button
+                                    type="button"
+                                    className="password-btn"
+                                    onClick={() =>
+                                        this.setState({
+                                            showPassword: !showPassword
+                                        })
+                                    }
+                                >
+
+                                    <i
+                                        className={
+                                            showPassword
+                                                ? "bi bi-eye-slash"
+                                                : "bi bi-eye"
+                                        }
+                                    ></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+                        {/*=====================
     Confirm Password
 =====================*/}
 
-<div className="mb-4">
+                        <div className="mb-4">
 
-    <div className="input-box">
+                            <div className="input-box">
 
-        <span className="input-icon">
+                                <span className="input-icon">
 
-            <i className="bi bi-shield-lock"></i>
+                                    <i className="bi bi-shield-lock"></i>
 
-        </span>
+                                </span>
 
-        <input
-            type={showConfirmPassword ? "text" : "password"}
-            className="form-control"
-            placeholder="পাসওয়ার্ড নিশ্চিত করুন"
-            name="confirmPassword"
-            value={form.confirmPassword}
-            onChange={this.handleChange}
-        />
+                                <input
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    className="form-control"
+                                    placeholder="পাসওয়ার্ড নিশ্চিত করুন"
+                                    name="confirmPassword"
+                                    value={form.confirmPassword}
+                                    onChange={this.handleChange}
+                                />
 
-        <button
-            type="button"
-            className="password-btn"
-            onClick={() =>
-                this.setState({
-                    showConfirmPassword: !showConfirmPassword
-                })
-            }
-        >
+                                {
+                                    this.state.errors.confirmPassword && (
 
-            <i
-                className={
-                    showConfirmPassword
-                        ? "bi bi-eye-slash"
-                        : "bi bi-eye"
-                }
-            ></i>
+                                        <div className="text-danger mt-1">
 
-        </button>
+                                            {this.state.errors.confirmPassword}
 
-    </div>
+                                        </div>
 
-</div>
+                                    )
+                                }
+
+                                <button
+                                    type="button"
+                                    className="password-btn"
+                                    onClick={() =>
+                                        this.setState({
+                                            showConfirmPassword: !showConfirmPassword
+                                        })
+                                    }
+                                >
+
+                                    <i
+                                        className={
+                                            showConfirmPassword
+                                                ? "bi bi-eye-slash"
+                                                : "bi bi-eye"
+                                        }
+                                    ></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
 
 
-{/*=====================
+                        {/*=====================
     Terms
 =====================*/}
 
-<div className="form-check mb-4">
+                        <div className="form-check mb-4">
 
-    <input
-        className="form-check-input"
-        type="checkbox"
-        id="terms"
-        name="terms"
-        checked={form.terms}
-        onChange={this.handleChange}
-    />
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="terms"
+                                name="terms"
+                                checked={form.terms}
+                                onChange={this.handleChange}
+                            />
 
-    <label
-        className="form-check-label"
-        htmlFor="terms"
-    >
+                            {
+                                this.state.errors.terms && (
 
-        আমি <a href="#">শর্তাবলী</a> এবং{" "}
-        <a href="#">গোপনীয়তা নীতি</a> মেনে নিচ্ছি
+                                    <div className="text-danger mt-2">
 
-    </label>
+                                        {this.state.errors.terms}
 
-</div>
+                                    </div>
+
+                                )
+                            }
+
+                            <label
+                                className="form-check-label"
+                                htmlFor="terms"
+                            >
+
+                                আমি <a href="#">শর্তাবলী</a> এবং{" "}
+                                <a href="#">গোপনীয়তা নীতি</a> মেনে নিচ্ছি
+
+                            </label>
+
+                        </div>
 
 
-{/*=====================
+                        {/*=====================
     Register Button
 =====================*/}
 
-<button
-    type="submit"
-    className="btn login-btn"
->
+                        <button
+                            type="submit"
+                            className="btn login-btn"
+                        >
 
-    <i className="bi bi-person-plus-fill me-2"></i>
+                            <i className="bi bi-person-plus-fill me-2"></i>
 
-    অ্যাকাউন্ট তৈরি করুন
+                            অ্যাকাউন্ট তৈরি করুন
 
-</button>
-                    {/*=====================
+                        </button>
+                        {/*=====================
                         Divider
                     =====================*/}
 
-                    <div className="login-divider">
+                        <div className="login-divider">
 
-                        <span>অথবা</span>
+                            <span>অথবা</span>
 
-                    </div>
+                        </div>
 
 
-                    {/*=====================
+                        {/*=====================
                         Social Login
                     =====================*/}
 
-                    <div className="row g-3">
+                        <div className="row g-3">
 
-                        <div className="col-md-4">
+                            <div className="col-md-4">
 
-                            <button
-                                type="button"
-                                className="btn social-btn"
-                            >
+                                <button
+                                    type="button"
+                                    className="btn social-btn"
+                                >
 
-                                <i className="bi bi-google google"></i>
+                                    <i className="bi bi-google google"></i>
 
-                                <span>Google</span>
+                                    <span>Google</span>
 
-                            </button>
+                                </button>
+
+                            </div>
+
+                            <div className="col-md-4">
+
+                                <button
+                                    type="button"
+                                    className="btn social-btn"
+                                >
+
+                                    <i className="bi bi-facebook facebook"></i>
+
+                                    <span>Facebook</span>
+
+                                </button>
+
+                            </div>
+
+                            <div className="col-md-4">
+
+                                <button
+                                    type="button"
+                                    className="btn social-btn"
+                                >
+
+                                    <i className="bi bi-github github"></i>
+
+                                    <span>GitHub</span>
+
+                                </button>
+
+                            </div>
 
                         </div>
 
-                        <div className="col-md-4">
 
-                            <button
-                                type="button"
-                                className="btn social-btn"
-                            >
-
-                                <i className="bi bi-facebook facebook"></i>
-
-                                <span>Facebook</span>
-
-                            </button>
-
-                        </div>
-
-                        <div className="col-md-4">
-
-                            <button
-                                type="button"
-                                className="btn social-btn"
-                            >
-
-                                <i className="bi bi-github github"></i>
-
-                                <span>GitHub</span>
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    {/*=====================
+                        {/*=====================
                         Login Link
                     =====================*/}
 
-                    <div className="register-area">
+                        <div className="register-area">
 
-                        <span>
+                            <span>
 
-                            ইতিমধ্যে অ্যাকাউন্ট আছে?
+                                ইতিমধ্যে অ্যাকাউন্ট আছে?
 
-                        </span>
+                            </span>
 
-                        <button
-                            type="button"
-                            className="register-link"
-                            onClick={() => setPage("login")}
-                        >
+                            <button
+                                type="button"
+                                className="register-link"
+                                onClick={() => setPage("login")}
+                            >
 
-                            সাইন ইন
+                                সাইন ইন
 
-                        </button>
+                            </button>
 
-                    </div>
+                        </div>
 
-                </form>
+                    </form>
 
-            </div>
+                </div>
 
-        </>
+            </>
 
         );
 

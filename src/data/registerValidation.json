@@ -1,0 +1,132 @@
+{
+  "form": "register",
+
+  "fields": {
+    "fullName": {
+      "label": "পুরো নাম",
+      "defaultValue": "",
+      "validateOn": ["load", "change", "submit"],
+      "rules": [
+        {
+          "type": "required",
+          "message": "পুরো নাম লিখুন"
+        },
+        {
+          "type": "minLength",
+          "value": 3,
+          "message": "কমপক্ষে ৩ অক্ষর হতে হবে"
+        },
+        {
+          "type": "maxLength",
+          "value": 100,
+          "message": "সর্বোচ্চ ১০০ অক্ষর"
+        }
+      ]
+    },
+
+    "username": {
+      "label": "ইউজারনেম",
+      "defaultValue": "",
+      "validateOn": ["change", "submit"],
+      "rules": [
+        {
+          "type": "required",
+          "message": "ইউজারনেম লিখুন"
+        },
+        {
+          "type": "regex",
+          "pattern": "^[a-zA-Z0-9_]+$",
+          "message": "শুধু ইংরেজি অক্ষর, সংখ্যা ও _ ব্যবহার করুন"
+        },
+        {
+          "type": "minLength",
+          "value": 4,
+          "message": "কমপক্ষে ৪ অক্ষর"
+        }
+      ]
+    },
+
+    "email": {
+      "label": "ইমেইল",
+      "defaultValue": "",
+      "validateOn": ["change", "submit"],
+      "rules": [
+        {
+          "type": "required",
+          "message": "ইমেইল লিখুন"
+        },
+        {
+          "type": "email",
+          "message": "সঠিক ইমেইল দিন"
+        }
+      ]
+    },
+
+    "phone": {
+      "label": "মোবাইল নম্বর",
+      "defaultValue": "",
+      "validateOn": ["change", "submit"],
+      "rules": [
+        {
+          "type": "required",
+          "message": "মোবাইল নম্বর লিখুন"
+        },
+        {
+          "type": "regex",
+          "pattern": "^01[3-9][0-9]{8}$",
+          "message": "সঠিক বাংলাদেশি মোবাইল নম্বর দিন"
+        }
+      ]
+    },
+
+    "password": {
+      "label": "পাসওয়ার্ড",
+      "defaultValue": "",
+      "validateOn": ["change", "submit"],
+      "rules": [
+        {
+          "type": "required",
+          "message": "পাসওয়ার্ড লিখুন"
+        },
+        {
+          "type": "minLength",
+          "value": 8,
+          "message": "কমপক্ষে ৮ অক্ষর"
+        },
+        {
+          "type": "passwordStrength",
+          "message": "একটি বড় হাতের অক্ষর, একটি ছোট হাতের অক্ষর, একটি সংখ্যা ও একটি বিশেষ চিহ্ন থাকতে হবে"
+        }
+      ]
+    },
+
+    "confirmPassword": {
+      "label": "পাসওয়ার্ড নিশ্চিত করুন",
+      "defaultValue": "",
+      "validateOn": ["change", "submit"],
+      "rules": [
+        {
+          "type": "required",
+          "message": "পাসওয়ার্ড পুনরায় লিখুন"
+        },
+        {
+          "type": "match",
+          "field": "password",
+          "message": "দুইটি পাসওয়ার্ড এক নয়"
+        }
+      ]
+    },
+
+    "terms": {
+      "label": "শর্তাবলী",
+      "defaultValue": false,
+      "validateOn": ["submit"],
+      "rules": [
+        {
+          "type": "requiredTrue",
+          "message": "শর্তাবলী গ্রহণ করুন"
+        }
+      ]
+    }
+  }
+}
