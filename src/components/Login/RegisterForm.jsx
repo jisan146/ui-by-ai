@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import validation from "../../utils/validation";
 import validationService from "../../services/validationService";
+import axios from "axios";
 class RegisterForm extends Component {
 
     constructor(props) {
@@ -165,7 +166,7 @@ class RegisterForm extends Component {
     // Handle Submit
     //--------------------------------------------------
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
 
         e.preventDefault();
 
@@ -220,7 +221,63 @@ class RegisterForm extends Component {
         // API Call
         //=========================================
 
-        this.props.setPage("otp");
+        try {
+
+            const result = await validationService.register(this.state.form);
+
+            if (!result.success) {
+
+                this.setState({
+
+                    errors: result.errors,
+
+                    isValid: false
+
+                });
+
+                validation.focusFirstError(result.errors);
+
+                return;
+
+            }
+
+            this.props.setPage("otp");
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+            // Laravel Validation Error
+
+            if (error.response?.status === 422) {
+
+                const serverErrors = {};
+
+                Object.keys(error.response.data.errors).forEach((key) => {
+
+                    serverErrors[key] =
+                        error.response.data.errors[key][0];
+
+                });
+
+                this.setState({
+
+                    errors: serverErrors,
+
+                    isValid: false
+
+                });
+
+                validation.focusFirstError(serverErrors);
+
+                return;
+
+            }
+
+            alert("Something went wrong.");
+
+        }
 
         // this.props.setPage("register-success");
         // this.props.setPage("password-success");

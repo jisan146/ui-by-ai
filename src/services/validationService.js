@@ -1,3 +1,5 @@
+import axios from "axios";
+
 class ValidationService {
 
     //--------------------------------------------------
@@ -18,41 +20,89 @@ class ValidationService {
 
         try {
 
-            const response = await fetch(
+            const response = await axios.get(
 
-                `${this.baseUrl}/${formName}-form`,
+                `${this.baseUrl}/${formName}-form`
+
+            );
+
+            return response.data;
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+            return null;
+
+        }
+
+    }
+
+    //--------------------------------------------------
+    // Register
+    //--------------------------------------------------
+
+    async register(formData) {
+
+        try {
+
+            const response = await axios.post(
+
+                `${this.baseUrl}/auth/register`,
+
+                formData,
 
                 {
-                    method: "GET",
                     headers: {
+
+                        "Content-Type": "application/json",
                         "Accept": "application/json"
+
                     }
                 }
 
             );
 
-            if (!response.ok) {
+            return {
 
-                throw new Error(
-                    `HTTP ${response.status}`
-                );
+                success: true,
 
-            }
+                data: response.data
 
-            return await response.json();
+            };
 
         }
         catch (error) {
 
-            console.error(
+            if (error.response?.status === 422) {
 
-                `Validation schema '${formName}' not found.`,
+                const errors = {};
 
-                error
+                Object.keys(error.response.data.errors).forEach((key) => {
 
-            );
+                    errors[key] =
+                        error.response.data.errors[key][0];
 
-            return null;
+                });
+
+                return {
+
+                    success: false,
+
+                    errors
+
+                };
+
+            }
+
+            return {
+
+                success: false,
+
+                message: error.message
+
+            };
 
         }
 
