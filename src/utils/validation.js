@@ -156,6 +156,34 @@ class Validation {
                 }
 
                 break;
+            case "passwordStrength":
+
+                if (!value) {
+                    break;
+                }
+
+                const upper =
+                    (value.match(/[A-Z]/g) || []).length;
+
+                const lower =
+                    (value.match(/[a-z]/g) || []).length;
+
+                const digit =
+                    (value.match(/[0-9]/g) || []).length;
+
+                const special =
+                    (value.match(/[^A-Za-z0-9]/g) || []).length;
+
+                if (
+                    upper < (rule.minUpperCase || 1) ||
+                    lower < (rule.minLowerCase || 1) ||
+                    digit < (rule.minDigit || 1) ||
+                    special < (rule.minSpecial || 1)
+                ) {
+                    return rule.message;
+                }
+
+                break;
 
             default:
 

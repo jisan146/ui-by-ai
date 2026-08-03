@@ -6,10 +6,9 @@ class ValidationService {
 
     constructor() {
 
-        this.cache = {};
+        this.baseUrl = "http://127.0.0.1:8000/api";
 
     }
-
 
     //--------------------------------------------------
     // Get Validation Schema
@@ -17,73 +16,45 @@ class ValidationService {
 
     async getSchema(formName) {
 
-        // Return from cache
-
-        if (this.cache[formName]) {
-
-            return this.cache[formName];
-
-        }
-
         try {
 
-            //--------------------------------------------------
-            // Development
-            //--------------------------------------------------
+            const response = await fetch(
 
-            const module = await import(
-                `../data/${formName}Validation.json`
+                `${this.baseUrl}/${formName}-form`,
+
+                {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                }
+
             );
 
-            this.cache[formName] = module.default;
+            if (!response.ok) {
 
-            return module.default;
+                throw new Error(
+                    `HTTP ${response.status}`
+                );
 
+            }
 
-            //--------------------------------------------------
-            // Production (Future)
-            //--------------------------------------------------
-
-            /*
-            const response = await api.get(
-                `/validation/${formName}`
-            );
-
-            this.cache[formName] = response.data;
-
-            return response.data;
-            */
+            return await response.json();
 
         }
         catch (error) {
 
             console.error(
+
                 `Validation schema '${formName}' not found.`,
+
                 error
+
             );
 
             return null;
 
         }
-
-    }
-
-
-    //--------------------------------------------------
-    // Clear Cache
-    //--------------------------------------------------
-
-    clearCache(formName = null) {
-
-        if (formName) {
-
-            delete this.cache[formName];
-
-            return;
-
-        }
-
-        this.cache = {};
 
     }
 

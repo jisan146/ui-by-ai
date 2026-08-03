@@ -271,7 +271,7 @@ class RegisterForm extends Component {
 
                     </div>
 
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit}  >
                         {/*=====================
     Row 1
 =====================*/}
@@ -288,7 +288,7 @@ class RegisterForm extends Component {
 
                                     </span>
 
-                                    <input
+                                    <input autoComplete="new-password"
                                         type="text"
                                         className="form-control"
                                         placeholder="পুরো নাম"
@@ -323,7 +323,7 @@ class RegisterForm extends Component {
 
                                     </span>
 
-                                    <input
+                                    <input autoComplete="new-password"
                                         type="text"
                                         className="form-control"
                                         placeholder="ইউজারনেম"
@@ -367,7 +367,7 @@ class RegisterForm extends Component {
 
                                     </span>
 
-                                    <input
+                                    <input autoComplete="new-password"
                                         type="email"
                                         className="form-control"
                                         placeholder="ইমেইল"
@@ -402,7 +402,7 @@ class RegisterForm extends Component {
 
                                     </span>
 
-                                    <input
+                                    <input autoComplete="new-password"
                                         type="text"
                                         className="form-control"
                                         placeholder="মোবাইল নম্বর"
@@ -444,7 +444,7 @@ class RegisterForm extends Component {
 
                                 </span>
 
-                                <input
+                                <input autoComplete="new-password"
                                     type={showPassword ? "text" : "password"}
                                     className="form-control"
                                     placeholder="পাসওয়ার্ড"
@@ -502,7 +502,7 @@ class RegisterForm extends Component {
 
                                 </span>
 
-                                <input
+                                <input autoComplete="new-password"
                                     type={showConfirmPassword ? "text" : "password"}
                                     className="form-control"
                                     placeholder="পাসওয়ার্ড নিশ্চিত করুন"
@@ -554,7 +554,7 @@ class RegisterForm extends Component {
 
                         <div className="form-check mb-4">
 
-                            <input
+                            <input autoComplete="new-password"
                                 className="form-check-input"
                                 type="checkbox"
                                 id="terms"
