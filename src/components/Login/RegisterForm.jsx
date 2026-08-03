@@ -275,7 +275,7 @@ class RegisterForm extends Component {
 
             }
 
-            alert("Something went wrong.");
+          //  alert("Something went wrong.");
 
         }
 
