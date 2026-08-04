@@ -83,6 +83,8 @@ class OtpForm extends Component {
 
             const { data } = await axios.post("http://localhost:8000/api/resend-otp", {
                 sessionKey: otpInfo.sessionKey,
+                type: otpInfo.type,
+                email: otpInfo.sessionKey
             });
 
             if (data.success) {
@@ -95,7 +97,7 @@ class OtpForm extends Component {
             }
 
         } catch (error) {
-           
+
             alert(error.response?.data?.message || "Something went wrong.");
 
         }
@@ -112,23 +114,71 @@ class OtpForm extends Component {
 
         try {
 
-            const otpInfo = JSON.parse(sessionStorage.getItem("otp-info"));
+            const otpInfo = JSON.parse(
+                sessionStorage.getItem("otp-info")
+            );
 
-            const sessionKey = otpInfo?.sessionKey;
+            if (!otpInfo) {
+                alert("OTP session expired.");
+                return;
+            }
 
-            const { data } = await axios.post("http://localhost:8000/api/verify-otp", {
-                sessionKey,
-                otp: code,
-            });
+            let url = "";
+            let payload = {};
+
+            if (otpInfo.type === "for-login") {
+
+                url = "http://localhost:8000/api/verify-otp";
+
+                payload = {
+                    sessionKey: otpInfo.sessionKey,
+                    otp: code,
+                };
+
+            } else if (otpInfo.type === "for-password-reset") {
+
+                url = "http://localhost:8000/api/verify-forgot-otp";
+
+                payload = {
+                    email: otpInfo.sessionKey,
+                    otp: code,
+                };
+
+            } else {
+
+                alert("Invalid OTP request.");
+                return;
+
+            }
+
+            const { data } = await axios.post(url, payload);
 
             if (data.success) {
 
-                localStorage.removeItem("otp-info");
+                if (otpInfo.type === "for-login") {
 
-                alert(data.message);
+                    sessionStorage.removeItem("otp-info");
 
-                // Registration Success
-                this.props.setPage("register-success");
+                    alert(data.message);
+
+                    this.props.setPage("register-success");
+
+                } else if (otpInfo.type === "for-password-reset") {
+
+                    // reset page-এর জন্য resetKey save করুন
+                    sessionStorage.setItem(
+                        "reset-info",
+                        JSON.stringify({
+                            resetKey: data.resetKey,
+                        })
+                    );
+
+                    sessionStorage.removeItem("otp-info");
+
+                    alert(data.message);
+
+                    this.props.setPage("reset");
+                }
 
             }
 
