@@ -8,7 +8,7 @@ class RegisterForm extends Component {
     constructor(props) {
 
         super(props);
-      
+
         this.validationSchema = null;
 
         this.state = {
@@ -218,44 +218,51 @@ class RegisterForm extends Component {
 
         console.log(this.state.form);
 
-       //=========================================
-// API Call
-//=========================================
+        //=========================================
+        // API Call
+        //=========================================
 
-try {
+        try {
+            const result = await FormSubmitService.submit(
+                "/auth/register",
+                this.state.form
+            );
 
-    const result = await FormSubmitService.submit(
+            if (!result.success) {
 
-        "/auth/register",
+                // Validation Error (422)
+                if (result.errors) {
+                    this.setState({
+                        errors: result.errors,
+                        isValid: false
+                    });
 
-        this.state.form
+                    validation.focusFirstError(result.errors);
+                    return;
+                }
 
-    );
+                // Other Errors (500, 404, Network, etc.)
+                this.setState({
+                    isValid: false,
+                    serverError: result.message
+                });
 
-    if (!result.success) {
+                alert(result.message); // অথবা Toast.show(result.message)
+                return;
+            }
 
-        this.setState({
+            this.props.setPage("otp");
 
-            errors: result.errors,
+        } catch (error) {
+            console.error(error);
 
-            isValid: false
+            this.setState({
+                isValid: false,
+                serverError: "Something went wrong. Please try again."
+            });
 
-        });
-
-        validation.focusFirstError(result.errors);
-
-        return;
-
-    }
-
-    this.props.setPage("otp");
-
-}
-catch (error) {
-
-    console.error(error);
-
-}
+            //alert("Something went wrong. Please try again.");
+        }
 
         // this.props.setPage("register-success");
         // this.props.setPage("password-success");
