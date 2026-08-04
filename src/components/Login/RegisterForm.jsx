@@ -247,7 +247,10 @@ class RegisterForm extends Component {
         try {
             const result = await FormSubmitService.submit(
                 "/auth/register",
-                this.state.form
+                {
+                    ...this.state.form,
+                    formName: this.constructor.name
+                }
             );
 
             if (!result.success) {
@@ -272,8 +275,16 @@ class RegisterForm extends Component {
                 alert(result.message); // অথবা Toast.show(result.message)
                 return;
             }
+            if (result.success) {
+                if (result.data.success) {
+                    sessionStorage.setItem("otp-info", JSON.stringify({ type: "for-login", sessionKey: result.data.sessionKey }));
+                    //sessionStorage.removeItem("user");
+                    //sessionStorage.clear();
+                    this.props.setPage("otp");
+                }
+            }
 
-            this.props.setPage("otp");
+
 
         } catch (error) {
             console.error(error);
