@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import validation from "../../utils/validation";
-import validationService from "../../services/validationService";
+import validationService from "../../services/ValidationService";
+import FormSubmitService from "../../services/FormSubmitService";
 import axios from "axios";
 class RegisterForm extends Component {
 
     constructor(props) {
 
         super(props);
-
+      
         this.validationSchema = null;
 
         this.state = {
@@ -48,7 +49,7 @@ class RegisterForm extends Component {
     async componentDidMount() {
 
         this.validationSchema =
-            await validationService.getSchema("register");
+            await validationService.getSchema(this.constructor.name);
 
         if (!this.validationSchema) {
             return;
@@ -217,67 +218,44 @@ class RegisterForm extends Component {
 
         console.log(this.state.form);
 
-        //=========================================
-        // API Call
-        //=========================================
+       //=========================================
+// API Call
+//=========================================
 
-        try {
+try {
 
-            const result = await validationService.register(this.state.form);
+    const result = await FormSubmitService.submit(
 
-            if (!result.success) {
+        "/auth/register",
 
-                this.setState({
+        this.state.form
 
-                    errors: result.errors,
+    );
 
-                    isValid: false
+    if (!result.success) {
 
-                });
+        this.setState({
 
-                validation.focusFirstError(result.errors);
+            errors: result.errors,
 
-                return;
+            isValid: false
 
-            }
+        });
 
-            this.props.setPage("otp");
+        validation.focusFirstError(result.errors);
 
-        }
-        catch (error) {
+        return;
 
-            console.error(error);
+    }
 
-            // Laravel Validation Error
+    this.props.setPage("otp");
 
-            if (error.response?.status === 422) {
+}
+catch (error) {
 
-                const serverErrors = {};
+    console.error(error);
 
-                Object.keys(error.response.data.errors).forEach((key) => {
-
-                    serverErrors[key] =
-                        error.response.data.errors[key][0];
-
-                });
-
-                this.setState({
-
-                    errors: serverErrors,
-
-                    isValid: false
-
-                });
-
-                validation.focusFirstError(serverErrors);
-
-                return;
-
-            }
-
-          //  alert("Something went wrong.");
-
-        }
+}
 
         // this.props.setPage("register-success");
         // this.props.setPage("password-success");
