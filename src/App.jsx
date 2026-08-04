@@ -1,13 +1,17 @@
 import React, { Component, lazy, Suspense } from "react";
 import Cookies from "js-cookie";
 
+import "./assets/vendor/bootstrap/css/bootstrap.min.css";
+import "./assets/vendor/bootstrap/js/bootstrap.bundle.min.js";
+import "./assets/vendor/bootstrap-icons/bootstrap-icons.css";
+
 const MainLayout = lazy(() => import("./components/MainLayout/MainLayout"));
 const LoginLanding = lazy(() => import("./components/LoginLanding/LoginLanding"));
 
 class App extends Component {
 
     state = {
-        isLoggedIn: !!Cookies.get("token"),
+        isLoggedIn: !!Cookies.get("user"),
     };
 
     componentDidMount() {
@@ -20,7 +24,7 @@ class App extends Component {
 
     checkAuth = () => {
         this.setState({
-            isLoggedIn: !!Cookies.get("token"),
+            isLoggedIn: !!Cookies.get("user"),
         });
     };
 
