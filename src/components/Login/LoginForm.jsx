@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Cookies from "js-cookie";
 const LoginForm = ({ onLogin, setPage }) => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -21,6 +21,24 @@ const LoginForm = ({ onLogin, setPage }) => {
 
     };
 
+
+
+    const chkLogin = (e) => {
+
+        Cookies.set("token", { name: 'jisan' }, {
+            expires: 7,
+            path: "/",
+        });
+        const modal = bootstrap.Modal.getInstance(
+            document.getElementById("loginModal")
+        );
+
+        modal.hide();
+
+        window.dispatchEvent(new Event("authChanged"));
+
+    };
+
     const handleSubmit = (e) => {
 
         e.preventDefault();
@@ -30,6 +48,7 @@ const LoginForm = ({ onLogin, setPage }) => {
         }
 
     };
+
 
     return (
 
@@ -168,8 +187,8 @@ const LoginForm = ({ onLogin, setPage }) => {
                     {/* Login */}
 
                     <button
-                        type="submit"
-                        className="btn login-btn"
+
+                        className="btn login-btn" onClick={chkLogin}
                     >
 
                         <i className="bi bi-box-arrow-in-right me-2"></i>

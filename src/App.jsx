@@ -1,66 +1,54 @@
-import React, { Component } from "react";
+import React, { Component, lazy, Suspense } from "react";
+import Cookies from "js-cookie";
 
-import "./assets/vendor/bootstrap/css/bootstrap.min.css";
-import "./assets/vendor/bootstrap-icons/bootstrap-icons.css";
-
-import "./App.css";
-
-import Sidebar from "./components/Sidebar/Sidebar";
-import Header from "./components/Header/Header";
-import Form from "./components/Form/EmployeeForm"
-import Footer from "./components/Footer/Footer"
-
+const MainLayout = lazy(() => import("./components/MainLayout/MainLayout"));
+const LoginLanding = lazy(() => import("./components/LoginLanding/LoginLanding"));
 
 class App extends Component {
-  state = {
-    sidebarOpen: false,
-    isLogin: false
-  };
 
+    state = {
+        isLoggedIn: !!Cookies.get("token"),
+    };
 
+    componentDidMount() {
+        window.addEventListener("authChanged", this.checkAuth);
+    }
 
-  toggleSidebar = () => {
-    this.setState((prev) => ({
-      sidebarOpen: !prev.sidebarOpen,
-    }));
-  };
+    componentWillUnmount() {
+        window.removeEventListener("authChanged", this.checkAuth);
+    }
 
-  closeSidebar = () => {
-    this.setState({
-      sidebarOpen: false,
-    });
-  };
-  render() {
+    checkAuth = () => {
+        this.setState({
+            isLoggedIn: !!Cookies.get("token"),
+        });
+    };
 
-    return (
-      <div className="app-wrapper">
-
-        <Sidebar show={this.state.sidebarOpen} />
-        {/* Overlay */}
-        {this.state.sidebarOpen && (
-          <div
-            className="sidebar-overlay"
-            onClick={this.closeSidebar}
-          ></div>
-        )}
-
-        <main className="app-content">
-
-
-
-          <Header
-            toggleSidebar={this.toggleSidebar}
-            sidebarOpen={this.state.sidebarOpen}
-          />
-
-          <Form />
-
-          <Footer />
-        </main>
-
-      </div>
-    );
-  }
+    render() {
+        return (
+            <Suspense fallback={null}>
+                {this.state.isLoggedIn ? (
+                    <MainLayout />
+                ) : (
+                    <LoginLanding />
+                )}
+            </Suspense>
+        );
+    }
 }
 
 export default App;
+
+/*
+import "./assets/vendor/bootstrap/js/bootstrap.bundle.min.js";
+http://127.0.0.1:8000/docs/api
+mxho tejd lsne jvfd
+import React, { Component, lazy, Suspense } from "react";
+ <Suspense fallback={<div>Loading...</div>}>
+                    <Login />
+                </Suspense>
+                <Suspense fallback={null}>
+        <LoginModal />
+    </Suspense>
+    
+*/
