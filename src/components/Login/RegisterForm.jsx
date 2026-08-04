@@ -48,37 +48,59 @@ class RegisterForm extends Component {
     //--------------------------------------------------
     async componentDidMount() {
 
-        this.validationSchema =
-            await validationService.getSchema(this.constructor.name);
+        const result = await validationService.getSchema(
+            this.constructor.name
+        );
 
-        if (!this.validationSchema) {
+        if (!result.success) {
+
+            switch (result.status) {
+
+                case 404:
+                    console.error("Validation schema not found.");
+                    break;
+
+                case 401:
+                    console.error("Unauthorized. Please login again.");
+                    break;
+
+                case 500:
+                    console.error("Internal Server Error.");
+                    break;
+
+                default:
+                    console.error(result.message);
+
+            }
+            alert(result.message)
+            // চাইলে toast বা alert দেখাতে পারো
+            // toast.error(result.message);
+
             return;
+
         }
 
-        const errors = validation.validateForm(
+        this.validationSchema = result.data;
 
+        const errors = validation.validateForm(
             this.state.form,
             this.validationSchema,
             "submit"
-
         );
 
-        this.setState({
-
-            errors,
-            isValid: !validation.hasErrors(errors)
-
-        }, () => {
-
-            setTimeout(() => {
-
-                document
-                    .querySelector('input[name="fullName"]')
-                    ?.focus();
-
-            }, 50);
-
-        });
+        this.setState(
+            {
+                errors,
+                isValid: !validation.hasErrors(errors)
+            },
+            () => {
+                setTimeout(() => {
+                    document
+                        .querySelector('input[name="fullName"]')
+                        ?.focus();
+                }, 50);
+            }
+        );
 
     }
 
