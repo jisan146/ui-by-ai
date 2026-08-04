@@ -3,8 +3,13 @@ import "./Header.css";
 
 import headerBg from "../../assets/images/header-bg.png";
 import profile from "../../assets/images/avatar.png";
-
+import Cookies from "js-cookie";
 const Header = ({ toggleSidebar }) => {
+  const handleLogout = () => {
+    Cookies.remove("user", { path: "/" });
+
+    window.dispatchEvent(new Event("authChanged"));
+  };
   return (
     <header
       className="dashboard-header"
@@ -31,7 +36,7 @@ const Header = ({ toggleSidebar }) => {
           <div className="header-actions">
 
             {/* Country */}
-
+            <button onClick={handleLogout}> sign out </button>
             <button className="glass-btn country-btn">
 
               <img
